@@ -1,0 +1,50 @@
+{
+  "MainNet": {
+    "Name": "MainNet",
+    "ProtocolConfiguration": {
+      "Magic": 7630401,
+      "AddressVersion": 31,
+      "StandbyValidators": [
+        "02c95ad54fb9459625d80cb2df7d78b2a2dde0c4f8b31eff80fb3b8df7cfd45dd7",
+        "023722daa11d7e5fc334eed9d6bae936481368fe706e47f4ac15dbb5b25bbe9879"
+      ],
+      "SeedList": [
+        "52.197.188.81:10039",
+        "54.64.191.2:10039"
+      ],
+      "SystemFee": {
+        "EnrollmentTransaction": 1000,
+        "IssueTransaction": 500,
+        "PublishTransaction": 500,
+        "RegisterTransaction": 10000
+      }
+    },
+    "ExtraConfiguration": {
+      "qurasDB": "http://13.251.125.180:3001"
+    }
+  },
+  "TestNet": {
+    "Name": "TestNet",
+    "ProtocolConfiguration": {
+      "Magic": 7630401,
+      "AddressVersion": 31,
+      "StandbyValidators": [
+        "02572710435407bcc3233d1a7ad06e1570a19b9ab45acd30e6273b445778ea2a37",
+        "0316c2d61c24f2882ab82fc706b18d7c371614df88f9110599097ebdac2da79052"
+      ],
+      "SeedList": [
+        "54.238.189.190:10034",
+        "52.197.125.132:10034"
+      ],
+      "SystemFee": {
+        "EnrollmentTransaction": 10,
+        "IssueTransaction": 5,
+        "PublishTransaction": 5,
+        "RegisterTransaction": 100
+      }
+    },
+    "ExtraConfiguration": {
+      "qurasDB": "http://13.112.100.149:3001"
+    }
+  }
+}
