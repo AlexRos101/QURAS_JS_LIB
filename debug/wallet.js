@@ -11,15 +11,6 @@ const apiLogger = Quras.logging.logger.getLogger('api') // gets the logger for t
 apiLogger.setLevel('warn') // sets logging level only on the logger for the api package
 
 //console.log(Quras.CONST.ASSETS)
-var tmpPrikey = '68a63f5094a2867ac714723f430403594ea5679f44b6b6c026a73dd0587f64e8';
-var tmpPubkey = Quras.wallet.getPublicKeyFromPrivateKey(tmpPrikey);
-var tmpScriptHash = Quras.wallet.getScriptHashFromPublicKey(tmpPubkey);
-var tmpAddr = Quras.wallet.getAddressFromScriptHash(tmpScriptHash);
-
-console.log('prikey : ' + tmpPrikey)
-console.log('pubkey : ' + tmpPubkey)
-console.log('address : ' + tmpAddr)
-console.log('iswallet() : ' + Quras.wallet.isAddress(tmpAddr));
 
 const ico_account = new Quras.wallet.Account('b3bb07d55905375ab1eb923b2276e1ebf6903ce5770aed4b555e926910a9b126')
 console.log('privkey : ' + ico_account.privateKey)
@@ -98,7 +89,7 @@ rpcServer.getBlock(5)
         console.log("error");
 });
 
-Quras.api.qurasDB.getTransactionHistory("MainNet", "Do27ycn5urnJnWnNboiDh5i5PkAEFmvehd")
+Quras.api.qurasDB.getTransactionHistory("MainNet", "DfViMgzECVTsqEfGvukHcbWEZQoeDZttYB")
     .then((data) => {
         console.log(data);
     })
@@ -165,21 +156,22 @@ const tx = new Quras.tx.Transaction({
       ToAddress : DZbNA3F3vrTk7kmmiywAVpJ4P5foGkVek7
 */
 function SendCoin(){
-    Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.MAIN, 'Do27ycn5urnJnWnNboiDh5i5PkAEFmvehd') // Get the balance of from address.
+    Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.TEST, 'DmCy2mYmtGXnUbuk74q9DrMjdQGBGNPLt9') // Get the balance of from address.
     .then((data) => {
         const balance = new Quras.wallet.Balance(data)
-        var scriptHash = Quras.wallet.getScriptHashFromAddress('DZbNA3F3vrTk7kmmiywAVpJ4P5foGkVek7'); // To address.
+        var scriptHash = Quras.wallet.getScriptHashFromAddress('DgD8Ubw4h4ufGsdpwwCz46exzXCDZ9oeCz'); // To address.
         const outputs = [{
                 assetId: Quras.CONST.ASSET_ID['QRS'], // The type of coins that you want to send.
-                value: 2, // Coin amount to send.
+                value: 10, // Coin amount to send.
+                fee: 0.5, // fee.
                 scriptHash: scriptHash // The scripthash of "To address".
             }]
         
             const testTx = Quras.tx.Transaction.createContractTx(balance, outputs) // create a transaction.
         
-            testTx.sign('02bf9e9964a3c0421ad5a8dde06f848977c514fd5cc638434d567a05b87ade39'); // Sign the transaction using private key
+            testTx.sign('da4fb9e3044e1fad3a674386eddef4939595793ca1b290fc707d102939eb1ada'); // Sign the transaction using private key
         
-            rpcServer.sendRawTransaction(testTx.serialize()) // Send the transaction to RPC Server.
+            testRpcServer.sendRawTransaction(testTx.serialize()) // Send the transaction to RPC Server.
             .then((data) => {
                 console.log(data);
             })
@@ -192,7 +184,7 @@ function SendCoin(){
     });
 }
 
-//SendCoin();
+SendCoin();
 
 function IssueTx() {
     Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.MAIN, 'Do27ycn5urnJnWnNboiDh5i5PkAEFmvehd') // Get the balance of from address.

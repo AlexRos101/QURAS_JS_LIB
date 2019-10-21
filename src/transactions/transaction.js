@@ -147,6 +147,13 @@ class Transaction {
       version: TX_VERSION.CONTRACT,
       outputs: intents
     }, override)
+    
+    //var fees = 0;
+
+    intents.forEach((output) => {
+        fees += output.fee;
+    });
+
     const tx = new Transaction(txConfig).calculate(balances, null, fees)
     log.info(`New ContractTransaction for ${balances.address}`)
     return tx

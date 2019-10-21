@@ -38,7 +38,8 @@ export const TransactionOutput = (input) => {
   return {
     assetId: input.assetId,
     value: new Fixed8(input.value),
-    scriptHash: input.scriptHash
+    scriptHash: input.scriptHash,
+    fee:  new Fixed8(0)
   }
 }
 
@@ -49,7 +50,8 @@ export const TransactionOutput = (input) => {
  */
 export const serializeTransactionOutput = (output) => {
   const value = new Fixed8(output.value).toReverseHex()
-  return reverseHex(output.assetId) + value + reverseHex(output.scriptHash)
+  const fee = new Fixed8(output.fee).toReverseHex()
+  return reverseHex(output.assetId) + value + reverseHex(output.scriptHash) + fee
 }
 
 /**
@@ -61,7 +63,8 @@ export const deserializeTransactionOutput = (stream) => {
   const assetId = reverseHex(stream.read(32))
   const value = Fixed8.fromReverseHex(stream.read(8))
   const scriptHash = reverseHex(stream.read(20))
-  return { assetId, value, scriptHash }
+  const fee = Fixed8.fromReverseHex(stream.read(8))
+  return { assetId, value, scriptHash, fee }
 }
 
 /**

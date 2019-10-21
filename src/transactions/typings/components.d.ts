@@ -14,6 +14,7 @@ export interface TransactionOutput {
   assetId: string
   scriptHash: string
   value: number|Fixed8
+  fee: number|Fixed8
 }
 
 export interface Witness {
