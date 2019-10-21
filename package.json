@@ -27,7 +27,7 @@
   },
   "name": "quras-js",
   "description": "Javascript libraries for quras wallet.",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "main": "lib/index.js",
   "browser": "lib/browser.js",
   "module": "src/index.js",

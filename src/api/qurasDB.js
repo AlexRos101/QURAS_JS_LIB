@@ -129,6 +129,10 @@ export const getTransactionHistory = (net, address) => {
         }
       })
     })
+    .catch((error) => {
+      console.log(error)
+      return []
+    })
 }
 
 /**
