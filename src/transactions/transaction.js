@@ -8,6 +8,7 @@ import * as core from './core'
 import * as exc from './exclusive'
 import logger from '../logging'
 import { StateDescriptor } from './StateDescriptor'
+import { stringify } from 'querystring'
 
 const log = logger('tx')
 
@@ -119,7 +120,16 @@ class Transaction {
     let totalClaim = new Fixed8(claimData.amount)
     let maxClaim = 255
     txConfig.claims = claimData.references.slice(0, maxClaim).map((c) => {
-      return { prevHash: c.txid, prevIndex: c.vout }
+
+      if (c.txid.substr(0,2) == "0x")
+      {
+        var prevHash = c.txid.substr(2,c.txid.length - 2)
+        return { prevHash: prevHash, prevIndex: c.vout }
+      }
+      else
+      {
+        return { prevHash: c.txid, prevIndex: c.vout }
+      }
     })
     txConfig.outputs = [{
       assetId: ASSET_ID.QRG,
