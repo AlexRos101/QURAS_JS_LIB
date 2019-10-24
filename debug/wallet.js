@@ -55,7 +55,7 @@ rpcServer.getRawMemPool()
 
 });
 
-Quras.api.qurasDB.getClaimInfo(Quras.CONST.QURAS_NETWORK.MAIN, 'DknmAbcap8RnUpkLQvbXTwTXqFJMjN4QPz')
+Quras.api.qurasDB.getClaimInfo(Quras.CONST.QURAS_NETWORK.TEST, 'DknmAbcap8RnUpkLQvbXTwTXqFJMjN4QPz')
 .then((data) => {
     var tx = Quras.tx.Transaction.createClaimTxWithQurasDB('DknmAbcap8RnUpkLQvbXTwTXqFJMjN4QPz', data);
 })
@@ -63,7 +63,7 @@ Quras.api.qurasDB.getClaimInfo(Quras.CONST.QURAS_NETWORK.MAIN, 'DknmAbcap8RnUpkL
     console.log(error);
 });
 
-Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.MAIN, 'DnMVmxdNM46nTfxbTWPbrHr8zi16JWNA4x')
+Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.TEST, 'DnMVmxdNM46nTfxbTWPbrHr8zi16JWNA4x')
 .then((data) => {
     console.log(data);
 })
@@ -156,12 +156,12 @@ const tx = new Quras.tx.Transaction({
       ToAddress : DZbNA3F3vrTk7kmmiywAVpJ4P5foGkVek7
 */
 function SendCoin(){
-    Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.TEST, 'DmCy2mYmtGXnUbuk74q9DrMjdQGBGNPLt9') // Get the balance of from address.
+    Quras.api.qurasDB.getBalance(Quras.CONST.QURAS_NETWORK.TEST, 'DfT1zQssU8v9abEvkaAAmMTRhbdRMppfUh') // Get the balance of from address.
     .then((data) => {
         const balance = new Quras.wallet.Balance(data)
-        var scriptHash = Quras.wallet.getScriptHashFromAddress('DgD8Ubw4h4ufGsdpwwCz46exzXCDZ9oeCz'); // To address.
+        var scriptHash = Quras.wallet.getScriptHashFromAddress('DZnhQPZTVeSe1Z42iwcXg8ETHsfaY6mYbH'); // To address.
         const outputs = [{
-                assetId: Quras.CONST.ASSET_ID['QRS'], // The type of coins that you want to send.
+                assetId: Quras.CONST.ASSET_ID['QRG'], // The type of coins that you want to send.
                 value: 10, // Coin amount to send.
                 fee: 0.5, // fee.
                 scriptHash: scriptHash // The scripthash of "To address".
@@ -169,7 +169,7 @@ function SendCoin(){
         
             const testTx = Quras.tx.Transaction.createContractTx(balance, outputs) // create a transaction.
         
-            testTx.sign('da4fb9e3044e1fad3a674386eddef4939595793ca1b290fc707d102939eb1ada'); // Sign the transaction using private key
+            testTx.sign('e5dfe140ca209dfe6219d3d3d0ad2325dcd4f5978d459f86e29e5b02cf92ce09'); // Sign the transaction using private key
         
             testRpcServer.sendRawTransaction(testTx.serialize()) // Send the transaction to RPC Server.
             .then((data) => {

@@ -24,7 +24,7 @@ export const calculateInputs = (balances, intents, extraCost = 0, strategy = nul
     assets[intent.assetId] ? assets[intent.assetId] = assets[intent.assetId].add(intent.value) : assets[intent.assetId] = intent.value
     return assets
   }, {})
-  
+
   // Add GAS cost and fees in
   extraCost = new Fixed8(extraCost).add(fees)
   if (extraCost.gt(0)) {
