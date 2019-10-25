@@ -1,6 +1,5 @@
 import AssetBalance from './components/AssetBalance'
 import { Transaction } from '../transactions'
-import { ASSETS } from '../consts'
 import { Fixed8 } from '../utils'
 import { Query } from '../rpc'
 
@@ -80,6 +79,22 @@ class Balance {
   }
 
   /**
+   * Get token symbol
+   * @param {string} assetId - assetId
+   * @return symbol
+   */
+  getSymbol (assetId) {
+    var assets = this.assets
+    var ret = ''
+    Object.keys(assets).forEach(key => {
+      if (assets[key].assetId === assetId) {
+        ret = key
+      }
+    })
+    return ret
+  }
+
+  /**
    * Applies a Transaction to a Balance, removing spent coins and adding new coins. This currently applies only to Assets.
    * @param {Transaction|string} tx - Transaction that has been sent and accepted by Node.
    * @param {boolean} confirmed - If confirmed, new coins will be added to unspent. Else, new coins will be added to unconfirmed property first.
@@ -106,7 +121,13 @@ class Balance {
     const hash = tx.hash
     for (let i = 0; i < tx.outputs.length; i++) {
       const output = tx.outputs[i]
-      const sym = ASSETS[output.assetId]
+      var sym = ''
+      var assets = this.assets
+      Object.keys(assets).forEach(key => {
+        if (assets[key].assetId === output.assetId) {
+          sym = key
+        }
+      })
       let assetBalance = this.assets[sym]
       if (!assetBalance) this.addAsset(sym)
       const coin = { index: i, txid: hash, value: output.value }

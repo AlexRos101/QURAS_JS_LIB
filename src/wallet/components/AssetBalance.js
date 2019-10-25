@@ -10,6 +10,7 @@ import Coin from './Coin'
  */
 export default (assetBalanceObj = {}) => {
   const {
+    assetId,
     balance,
     unspent,
     spent,
@@ -17,6 +18,7 @@ export default (assetBalanceObj = {}) => {
   } = assetBalanceObj
 
   return {
+    assetId: assetId,
     balance: balance ? new Fixed8(balance) : new Fixed8(0),
     unspent: unspent ? unspent.map(coin => Coin(coin)) : [],
     spent: spent ? spent.map(coin => Coin(coin)) : [],

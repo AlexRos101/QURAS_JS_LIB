@@ -161,7 +161,7 @@ function SendCoin(){
         const balance = new Quras.wallet.Balance(data)
         var scriptHash = Quras.wallet.getScriptHashFromAddress('DZnhQPZTVeSe1Z42iwcXg8ETHsfaY6mYbH'); // To address.
         const outputs = [{
-                assetId: Quras.CONST.ASSET_ID['QRG'], // The type of coins that you want to send.
+                assetId: balance.assets["TEST_T_1"].assetId, // The type of coins that you want to send.
                 value: 10, // Coin amount to send.
                 fee: 0.5, // fee.
                 scriptHash: scriptHash // The scripthash of "To address".

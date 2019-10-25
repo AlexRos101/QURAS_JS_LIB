@@ -1,7 +1,7 @@
 import { num2VarInt, num2hexstring, StringStream, reverseHex, hash256, Fixed8 } from '../utils'
 import { Account, AssetBalance, generateSignature, getVerificationScriptFromPublicKey, getPublicKeyFromPrivateKey, getScriptHashFromAddress, isPrivateKey } from '../wallet'
 import { serializeExclusive, deserializeExclusive } from './exclusive'
-import { ASSETS, ASSET_ID } from '../consts'
+import { ASSET_ID } from '../consts'
 import * as comp from './components'
 import { defaultCalculationStrategy } from '../settings'
 import logger from '../logging'
@@ -36,10 +36,10 @@ export const calculateInputs = (balances, intents, extraCost = 0, strategy = nul
   }
   const inputsAndChange = Object.keys(requiredAssets).map((assetId) => {
     const requiredAmt = requiredAssets[assetId]
-    const assetSymbol = ASSETS[assetId]
+    const assetSymbol = balances.getSymbol(assetId)
     if (balances.assetSymbols.indexOf(assetSymbol) === -1) throw new Error(`This balance does not contain any ${assetSymbol}!`)
     const assetBalance = balances.assets[assetSymbol]
-    if (assetBalance.balance.lt(requiredAmt)) throw new Error(`Insufficient ${ASSETS[assetId]}! Need ${requiredAmt.toString()} but only found ${assetBalance.balance.toString()}`)
+    if (assetBalance.balance.lt(requiredAmt)) throw new Error(`Insufficient ${balances.getSymbol(assetId)}! Need ${requiredAmt.toString()} but only found ${assetBalance.balance.toString()}`)
     return calculateInputsForAsset(AssetBalance(assetBalance), requiredAmt, assetId, balances.address, strategy)
   })
 
@@ -80,10 +80,10 @@ export const calculateIssueInputs = (balances, intents, extraCost = 0, strategy 
   const inputsAndChangeAll = Object.keys(requiredAssets).map((assetId) => {
     if (assetId === ASSET_ID.QRG) {
       const requiredAmt = requiredAssets[assetId]
-      const assetSymbol = ASSETS[assetId]
+      const assetSymbol = balances.getSymbol(assetId)
       if (balances.assetSymbols.indexOf(assetSymbol) === -1) throw new Error(`This balance does not contain any ${assetSymbol}!`)
       const assetBalance = balances.assets[assetSymbol]
-      if (assetBalance.balance.lt(requiredAmt)) throw new Error(`Insufficient ${ASSETS[assetId]}! Need ${requiredAmt.toString()} but only found ${assetBalance.balance.toString()}`)
+      if (assetBalance.balance.lt(requiredAmt)) throw new Error(`Insufficient ${balances.getSymbol(assetId)}! Need ${requiredAmt.toString()} but only found ${assetBalance.balance.toString()}`)
       return calculateInputsForAsset(AssetBalance(assetBalance), requiredAmt, assetId, balances.address, strategy)
     }
   })

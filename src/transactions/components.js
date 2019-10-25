@@ -39,7 +39,7 @@ export const TransactionOutput = (input) => {
     assetId: input.assetId,
     value: new Fixed8(input.value),
     scriptHash: input.scriptHash,
-    fee:  new Fixed8(input.fee)
+    fee: new Fixed8(input.fee)
   }
 }
 

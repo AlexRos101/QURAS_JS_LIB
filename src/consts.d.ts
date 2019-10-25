@@ -2,11 +2,6 @@ import { Account } from "./wallet"
 
 export const ADDR_VERSION = '1f'
 
-export namespace ASSETS {
-  export const QRS: string
-  export const QRG: string
-}
-
 export namespace ASSET_ID {
   export const QRS: string
   export const QRG: string
